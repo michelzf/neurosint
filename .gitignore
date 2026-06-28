@@ -1,0 +1,115 @@
+# ============================================================================
+# Neurosint — .gitignore AGRESSIVO
+# Objetivo nº1: impedir que VOCÊ commite sem querer dados de saúde do seu
+# familiar ou qualquer credencial. Na dúvida, o arquivo fica de fora.
+# ============================================================================
+
+# --- DADOS DE SAÚDE — NUNCA COMMITAR ---------------------------------------
+# Os dados reais do seu familiar moram SÓ na sua máquina. Estas pastas, na raiz
+# do repo, são onde você os coloca — elas ficam ignoradas por completo.
+/exames/*
+!/exames/README.md
+!/exames/.gitkeep
+
+/consultas/
+/relatorios/
+/imagens/
+/DBS/
+/videos/
+/declaracoes/
+/prescricoes/
+/cirurgia/
+/laudos/
+/prontuario/
+/memory/
+
+# Tipos de arquivo de dado clínico, em qualquer lugar do repo
+*.dcm
+*.nii
+*.nii.gz
+*.DICOM
+
+# Fotos pessoais (.jpg/.jpeg) — quase sempre retratam pessoas reais.
+# Ignoradas por padrão para evitar commitar rostos identificáveis sem querer.
+# (Ícones/screenshots do app usam .png, que continua liberado.)
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+
+# PDFs são quase sempre laudo/exame → ignorados por padrão.
+# Exceção: o PDF da jornada e quaisquer PDFs de documentação ficam liberados.
+*.pdf
+!docs/**/*.pdf
+
+# --- SEGREDOS / CREDENCIAIS -------------------------------------------------
+.env
+.env.*
+!.env.example
+*secret*
+!*.gitleaks.toml
+# exceção: o workflow de CI de varredura (o nome contém "secret", mas não é segredo)
+!.github/workflows/secret-scan.yml
+*credential*
+service-account*.json
+*-service-account.json
+gha-creds-*.json
+*.pem
+*.key
+id_rsa*
+# exceção: secrets.js é um LOADER (env/GSM), sem valores reais — precisa ser versionado p/ a app rodar
+!assistant/src/secrets.js
+
+# Config com dados reais (o template versiona só os *.example.*)
+config.js
+!config.example.js
+# exceção: reexport seguro (env-driven), precisa ser versionado p/ a app rodar no clone
+!assistant/src/config.js
+secrets.local.*
+config.local.*
+
+# System prompt com PII clínica do paciente — versione só o *.example.md
+assistant/prompts/system-prompt.md
+
+# --- PLANEJAMENTO INTERNO (não vai para o repo público) ---------------------
+_planejamento/
+
+# --- PRIVADO (nota jurídica, manuscrito/paper, termo de consentimento) -------
+# Artefatos pessoais/em preparação — fora do repo público até decidir publicar.
+_privado/
+
+# --- AMBIENTES / BUILD ------------------------------------------------------
+node_modules/
+npm-debug.log*
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Saídas do pipeline de fusão (geradas a partir de DICOM do paciente)
+DBS/fusion_*/
+fusion_*/
+*.tfm
+atlas/*.nii.gz
+
+# --- DEV / TESTE LOCAL ------------------------------------------------------
+# Saídas do Playwright (snapshots, screenshots, logs) e artefatos do harness local.
+.playwright-mcp/
+/neurosint-local-dev.png
+# Stack local do Supabase CLI
+supabase/.branches/
+supabase/.temp/
+# Saídas do Playwright (teste de navegador via Edge do sistema)
+tools/devkit/playwright/test-results/
+tools/devkit/playwright/playwright-report/
+tools/devkit/playwright/.last-run.json
+
+# --- SISTEMA / EDITOR -------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~

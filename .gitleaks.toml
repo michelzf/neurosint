@@ -1,0 +1,48 @@
+# gitleaks — varredura de segredos do Neurosint
+# Roda em pre-commit (local) e em CI (.github/workflows/secret-scan.yml).
+# Doc: https://github.com/gitleaks/gitleaks
+
+title = "Neurosint gitleaks config"
+
+# Herda TODAS as regras padrão do gitleaks (AWS, GCP, Anthropic, OpenAI, JWT, etc.)
+[extend]
+useDefault = true
+
+# --- Regras extras específicas deste projeto -------------------------------
+[[rules]]
+id = "supabase-service-role-jwt"
+description = "Supabase service_role / anon JWT"
+regex = '''eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}'''
+keywords = ["eyJ", "service_role", "supabase"]
+
+[[rules]]
+id = "elevenlabs-api-key"
+description = "ElevenLabs API key"
+regex = '''(?i)(elevenlabs|xi-api-key)[^\n]{0,40}['\"=:\s]([a-f0-9]{32})'''
+keywords = ["elevenlabs", "xi-api-key"]
+
+[[rules]]
+id = "evolution-api-key"
+description = "Evolution API key (WhatsApp)"
+regex = '''(?i)(evolution[_-]?api[_-]?key|apikey)['\"=:\s]{1,4}([A-Za-z0-9]{16,})'''
+keywords = ["evolution", "apikey"]
+
+# --- Allowlist --------------------------------------------------------------
+[allowlist]
+description = "Arquivos de exemplo e placeholders não são segredos"
+paths = [
+  '''\.example$''',
+  '''\.example\.''',
+  '''\.env\.example$''',
+  '''(^|/)\.gitleaks\.toml$''',
+  '''(^|/)package-lock\.json$''',
+]
+# Strings que são claramente placeholders/documentação, não segredos reais
+regexes = [
+  '''(?i)(your|seu|sua|changeme|placeholder|example|exemplo|xxx+|\.\.\.|<[^>]+>|\{\{[^}]+\}\})''',
+  '''sk-ant-XXXXXXXX''',
+  # Chave anon do demo LOCAL do Supabase (issuer "supabase-demo"): pública por design,
+  # vem com todo `supabase start`. O segmento eyJpc3MiOiJzdXBhYmFzZS1kZW1v é o base64 de
+  # {"iss":"supabase-demo. Não é segredo — usada em api.ts / devkit p/ dev local.
+  '''eyJpc3MiOiJzdXBhYmFzZS1kZW1v''',
+]

@@ -1,0 +1,5 @@
+# Segredos das Edge Functions — nunca versionar.
+.env
+.env.local
+.env.server
+.env.*.local

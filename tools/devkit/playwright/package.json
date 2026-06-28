@@ -1,0 +1,13 @@
+{
+  "name": "neurosint-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Teste de navegador (Edge do sistema) do cliente web local do Neurosint.",
+  "scripts": {
+    "test": "playwright test --reporter=list"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}

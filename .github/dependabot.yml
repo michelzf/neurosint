@@ -1,0 +1,35 @@
+version: 2
+updates:
+  # Assistente WhatsApp (Node.js)
+  - package-ecosystem: npm
+    directory: /assistant
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # App mobile (Expo / React Native)
+  - package-ecosystem: npm
+    directory: /apps/mobile
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # Devkit — testes de navegador (Playwright)
+  - package-ecosystem: npm
+    directory: /tools/devkit/playwright
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # Fusão DBS (Python)
+  - package-ecosystem: pip
+    directory: /tools/dbs_fusion
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # GitHub Actions usadas nos workflows
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

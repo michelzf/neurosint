@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "Se você usar o Neurosint, por favor cite conforme abaixo. / If you use Neurosint, please cite it as below."
+title: "Neurosint: copiloto de IA (conselho multiagente) para síntese longitudinal de dados clínicos na Doença de Parkinson e DBS"
+abstract: >-
+  Sistema de código aberto, construído por um familiar cuidador, que organiza e cruza anos de
+  dados clínicos fragmentados e os analisa com um "conselho" de agentes de IA especialistas, para
+  apoiar a família e o médico no cuidado de um paciente com Doença de Parkinson e estimulação
+  cerebral profunda (DBS). Sistema de apoio à decisão: não diagnostica, não prescreve — o médico
+  decide. / An open-source, family-built system that organizes years of fragmented clinical data
+  and reasons over them with a "council" of specialist AI agents to support the family and the
+  physician in caring for a person with Parkinson's disease and deep brain stimulation (DBS). A
+  decision-support system: it does not diagnose or prescribe — the clinician decides.
+type: software
+authors:
+  - given-names: Michel
+    family-names: Zarzour
+    name-suffix: Filho
+    orcid: "https://orcid.org/0009-0004-0895-4930"
+repository-code: "https://github.com/michelzf/neurosint"
+url: "https://github.com/michelzf/neurosint"
+license: AGPL-3.0-or-later
+version: "1.0.0"
+date-released: "2026-06-28"
+keywords:
+  - inteligência artificial
+  - large language models
+  - sistemas multiagente
+  - apoio à decisão clínica
+  - Doença de Parkinson
+  - estimulação cerebral profunda
+  - DBS
+  - pesquisa conduzida por pacientes

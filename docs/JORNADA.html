@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neurosint — A jornada (7,1 mm)</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Georgia, "Times New Roman", serif; color:#1a1a1a; line-height:1.6;
+         font-size:11pt; max-width:730px; margin:0 auto; }
+  header { border-bottom:3px solid #009c3b; padding-bottom:14px; margin-bottom:8px; }
+  h1 { font-size:30pt; margin:0; letter-spacing:-1px; color:#0a0a0a; }
+  h1 small { display:block; font-size:12pt; color:#009c3b; font-weight:normal; letter-spacing:0; margin-top:2px; }
+  .tagline { font-style:italic; color:#555; margin:4px 0 0; }
+  .note { font-family:-apple-system,Segoe UI,sans-serif; font-size:8.5pt; color:#666;
+          background:#f6f7f8; border:1px solid #e3e6e8; border-radius:5px; padding:7px 11px; margin:14px 0; }
+  h2 { font-size:14.5pt; color:#00712b; margin:24px 0 7px; }
+  p { margin:0 0 11px; }
+  .lead { font-size:13pt; }
+  .num { color:#009c3b; font-weight:bold; }
+  figure { margin:18px 0; text-align:center; page-break-inside:avoid; }
+  figure img { max-width:62%; border:1px solid #ccc; border-radius:4px; }
+  figure.wide img { max-width:97%; }
+  figure.photo img { max-width:58%; border-radius:10px; }
+  figcaption { font-family:-apple-system,Segoe UI,sans-serif; font-size:8.5pt; color:#666; margin-top:6px; }
+  blockquote { border-left:4px solid #009c3b; margin:20px 0; padding:8px 18px; background:#f4fbf6;
+               font-style:italic; color:#1d3a28; font-size:12pt; }
+  .ded { margin-top:26px; padding:14px 18px; background:#fafafa; border:1px solid #eee; border-radius:6px;
+         font-style:italic; color:#333; }
+  footer { margin-top:26px; padding-top:10px; border-top:1px solid #ddd;
+           font-family:-apple-system,Segoe UI,sans-serif; font-size:8pt; color:#999; }
+  strong { color:#0a0a0a; }
+</style>
+</head>
+<body>
+<header>
+  <h1>7,1 milímetros<small>🛡️ Neurosint — a jornada</small></h1>
+  <p class="tagline">A história real (anonimizada) que deu origem ao projeto. Sobre o meu pai.</p>
+</header>
+
+<div class="note">Documento educacional e anonimizado — sem nome, datas ou qualquer dado de
+identificação. Não é conselho médico. O Neurosint é um copiloto para a família e o médico;
+quem decide é sempre o profissional.</div>
+
+<p class="lead">Sete vírgula um milímetros. Esse é o quanto o eletrodo no cérebro do meu pai
+ficou fora do alvo — desde a cirurgia, anos atrás.</p>
+
+<p>Meu pai tem Parkinson. Anos atrás, fez uma cirurgia de estimulação cerebral profunda (DBS):
+basicamente um marca-passo instalado no cérebro. <strong>Por seis anos, ninguém notou</strong>
+que o eletrodo esquerdo tinha sido posicionado fora do ponto certo.</p>
+
+<p>Eu trabalho com tecnologia e estudo IA aplicada desde 2022 — sistemas multi-agente, RAG,
+memória semântica em produção. Não sou médico. Não tenho doutorado. Nada disso me preparou
+para o que vou contar.</p>
+
+<h2>A virada</h2>
+<p>Praia, família reunida. Meu pai travou. Tremor, rigidez total, olhando pra gente sem
+responder. Eu tinha o controle remoto do estimulador na mão. Desliguei. Esperei. Religuei.
+Ele voltou a se mexer.</p>
+<p>Levei ao médico. A resposta foi: <em>"isso é progressão da doença. Você tem que aceitar a
+condição do seu pai."</em> &nbsp;Aceitar.</p>
+
+<h2>O que eu fiz em vez de aceitar</h2>
+<p>Comecei a estudar Parkinson e neuroestimuladores a fundo. E fiz duas coisas. Primeiro,
+<strong>construí um assistente de WhatsApp</strong> que conversa com meus pais todo dia e
+registra remédio, tremor, marcha e o programa ativo do estimulador — em dois meses, uma base
+de dados que nenhum médico teria como acumular sozinho, porque a consulta vê um instante e o
+dia a dia vê o padrão. Segundo, <strong>organizei mais de 50 exames</strong>, de cerca de uma década,
+cada PDF por OCR, cada laudo virando texto pesquisável.</p>
+<p>Aí montei um <strong>time de IA</strong>: cinco agentes especialistas — neurologia,
+neurocirurgia de DBS, farmacologia, evidência clínica e um <strong>auditor anti-viés</strong>
+(para brigar com as conclusões dos outros). Dois dias de computador rodando.</p>
+
+<h2>As duas descobertas</h2>
+<p><strong>A amperagem estava em 6,0 mA.</strong> Para um contato direcional, o esperado é
+abaixo de 4. Estava cronicamente acima, havia meses. <strong>E o eletrodo esquerdo estava
+<span class="num">7,1 mm</span> fora do alvo</strong> — assim desde a cirurgia. Seis
+anos de estimulação com o eletrodo fora do lugar, vazando estímulo para estruturas vizinhas.</p>
+
+<figure class="wide">
+  <img src="jornada_eletrodos.png" alt="Comparação dos eletrodos de DBS num corte da TC">
+  <figcaption>Corte da tomografia no nível dos contatos: à direita (círculo verde), o eletrodo
+  dentro do alvo; à esquerda (círculo vermelho), deslocado para frente.
+  Imagem <strong>redigida</strong> — sem nome, datas ou identificadores.</figcaption>
+</figure>
+
+<p>Tudo que parecia <em>progressão da doença</em> era, em boa parte,
+<strong>estimulação desalinhada.</strong></p>
+
+<h2>O ceticismo (a parte mais importante)</h2>
+<p>Eu sei que a IA alucina. Uma hipótese que explica bem demais é bandeira amarela. Então não
+acreditei — fui verificar. Marquei consulta com um neurologista de um centro de referência terciário.
+Levei meu pai, a reconstrução tridimensional, tudo. Ele fez a <strong>própria análise</strong>,
+com o time dele. <strong>Confirmou.</strong></p>
+<p>A partir daí, refinamos o plano <strong>juntos</strong>: reprogramação guiada por imagem,
+redução de amperagem semana a semana. Meu pai está em recuperação — voltando a se mexer com
+mais leveza, a participar das conversas. Pedaço por pedaço.</p>
+
+<h2>Por que isso aconteceu (e não é culpa de ninguém)</h2>
+<p>Nenhum médico errou de propósito. O sistema dá vinte minutos de consulta e anos entre
+revisões. Ninguém tinha tempo de cruzar uma década de exames para encontrar a pergunta certa.
+Eu tive. IA aplicada ao seu negócio é uma fração do que ela consegue quando aplicada a uma
+vida que você ama. Mesmo conjunto de ferramentas. Resultado incomparável.</p>
+
+<blockquote>A IA não diagnosticou. Não prescreveu. Não reprogramou. Os médicos fizeram.
+Eu só reduzi a distância entre os dados e a decisão.</blockquote>
+
+<h2>Por que abrir o código</h2>
+<p>Porque essa distância existe para muita gente. Se você cuida de um familiar com uma doença
+complexa, talvez parte disto sirva para você também. O Neurosint é esse sistema, transformado
+em template — sem nenhum dado do meu pai e sem nenhuma credencial — sob licença AGPL-3.0. Um
+copiloto para a família e o médico: organiza, cruza e prepara; quem decide é sempre o profissional.</p>
+
+<!-- foto pessoal removida da versão pública para anonimização; arquivo preservado localmente -->
+
+<div class="ded">Pai: você sustentou essa casa. Me ensinou a não desistir e a estudar mais do
+que parecia necessário. Tudo que fiz nesses meses só foi possível por causa de tudo que você
+fez por mim e pelas minhas irmãs. Hoje eu pude te devolver um pouco. Te amo.</div>
+
+<footer>Projeto Neurosint · github.com/michelzf/neurosint · AGPL-3.0-or-later ·
+Documento educacional e anonimizado. Não é conselho médico.</footer>
+</body>
+</html>

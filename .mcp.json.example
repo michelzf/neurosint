@@ -1,0 +1,43 @@
+{
+  "_instrucoes": [
+    "CAMADA 3 — servidores MCP de evidência científica e leitura de exames.",
+    "Copie este arquivo para .mcp.json e ajuste os CAMINHOS para a SUA máquina.",
+    "Cada server abaixo é um projeto open-source separado que você instala/builda localmente.",
+    "Veja docs/INSTALACAO.md para os links e o passo a passo de cada um.",
+    "",
+    "⚠️ CAVEAT: o parser 'parse-lab-values' do MCP 'exams' JA FALSIFICOU VALORES em casos",
+    "reais (valores inventados ou quebrados em laudos de certos laboratorios). SEMPRE",
+    "confirme qualquer numero extraido contra o texto bruto do laudo (read-exam-pdf).",
+    "",
+    "EXAMS_BASE_PATH aponta para a pasta de dados do SEU familiar (que fica so na sua",
+    "maquina). NUNCA versione esse caminho com dados reais."
+  ],
+  "mcpServers": {
+    "pubmed": {
+      "command": "python",
+      "args": ["-m", "mcp_simple_pubmed"],
+      "env": {
+        "PUBMED_EMAIL": "seu-email@exemplo.com"
+      }
+    },
+    "medical": {
+      "command": "node",
+      "args": ["/CAMINHO/PARA/medical-mcp/build/index.js"]
+    },
+    "healthcare": {
+      "command": "node",
+      "args": ["/CAMINHO/PARA/healthcare-mcp-public/server/index.js"]
+    },
+    "exams": {
+      "command": "node",
+      "args": ["/CAMINHO/PARA/medical-exams-mcp/build/index.js"],
+      "env": {
+        "EXAMS_BASE_PATH": "/CAMINHO/PARA/seus-dados-privados"
+      }
+    },
+    "paper-search": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/paper-search"]
+    }
+  }
+}
