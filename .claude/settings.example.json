@@ -1,0 +1,15 @@
+{
+  "//": "Copie para settings.local.json e ajuste. Permissões mínimas para o conselho: leitura + busca + despacho de subagents (a ferramenta chama-se Task).",
+  "// MCPs (Camada 3)": "Para não receber um prompt a cada chamada de MCP, acrescente ao allow os servidores do seu .mcp.json, ex.: \"mcp__pubmed\", \"mcp__medical\", \"mcp__healthcare\", \"mcp__exams\", \"mcp__paper-search\".",
+  "// Write": "O subagent de evidência (pesquisador-evidencia) pode pedir Write para salvar um dump longo. Adicione \"Write\" só se quiser pré-aprovar isso.",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "WebSearch",
+      "WebFetch",
+      "Task"
+    ]
+  }
+}

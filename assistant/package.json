@@ -1,0 +1,24 @@
+{
+  "name": "neurosint-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Assistente de cuidado por WhatsApp (Parkinson/DBS) — Node.js + Cloud Run. Camada 4 (assistente) do projeto Neurosint.",
+  "license": "AGPL-3.0-or-later",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "scheduler": "node src/scheduler.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/smoke.test.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "node-cron": "^3.0.3",
+    "pdfkit": "^0.15.1"
+  }
+}

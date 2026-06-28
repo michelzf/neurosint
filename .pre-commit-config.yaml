@@ -1,0 +1,36 @@
+# Hooks de pré-commit do Neurosint — o guarda-corpo que pega segredo/PII
+# ANTES do commit. Instale uma vez:
+#
+#   pip install pre-commit
+#   pre-commit install
+#
+# Depois disso, todo `git commit` roda estes hooks automaticamente.
+# "Um scanner que roda só depois do fato faz um terço do trabalho."
+
+repos:
+  # 1) gitleaks — varredura de segredos (usa o .gitleaks.toml deste repo)
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+
+  # 2) Higiene básica de arquivos
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ["--maxkb=2048"]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+
+  # 3) Checagem caseira anti-PII — bloqueia padrões óbvios de dado pessoal
+  #    (CPF, telefone BR, JID de grupo do WhatsApp). Ajuste a seu país, se quiser.
+  - repo: local
+    hooks:
+      - id: anti-pii-br
+        name: anti-pii (CPF / telefone / WhatsApp JID)
+        entry: bash tools/check-pii.sh
+        language: system
+        pass_filenames: false

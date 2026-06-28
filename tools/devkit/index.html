@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neurosint — cliente local (dev)</title>
+<style>
+  :root { --green:#009c3b; --ink:#15321f; --bg:#f3f7f4; --card:#fff; --muted:#5b6b60; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--ink); font-size:18px; }
+  header { background:var(--green); color:#fff; padding:14px 20px; font-size:22px; font-weight:700; }
+  main { max-width:780px; margin:0 auto; padding:18px; }
+  .card { background:var(--card); border-radius:14px; padding:18px; margin:14px 0; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  h2 { margin:.2em 0 .5em; font-size:19px; }
+  label { display:block; font-size:15px; color:var(--muted); margin-top:8px; }
+  input, textarea, button { font:inherit; width:100%; padding:12px; border:1px solid #cdd8d0; border-radius:10px; margin-top:4px; }
+  textarea { min-height:70px; }
+  button { background:var(--green); color:#fff; border:none; font-weight:700; cursor:pointer; width:auto; padding:12px 22px; margin-top:10px; }
+  button.secondary { background:#e7efe9; color:var(--ink); }
+  .muted { color:var(--muted); font-size:14px; }
+  .answer { background:#eef6f0; border-left:4px solid var(--green); padding:12px 14px; border-radius:8px; white-space:pre-wrap; }
+  .alert { background:#fff3f1; border-left:4px solid #c0392b; padding:10px 12px; border-radius:8px; margin-top:8px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .pill { font-size:13px; background:#e7efe9; padding:3px 9px; border-radius:999px; }
+  .item { border-top:1px solid #eee; padding:10px 0; }
+  .hidden { display:none; }
+  code { background:#eef2ee; padding:1px 5px; border-radius:5px; font-size:14px; }
+</style>
+</head>
+<body>
+<header>🛡️ Neurosint <span class="muted" style="color:#dff0e6;font-weight:400;font-size:15px;">· cliente local (dev)</span></header>
+<main>
+  <div class="muted" data-testid="status" id="status">Backend: <code id="health">verificando…</code></div>
+
+  <!-- LOGIN -->
+  <section class="card" id="loginCard">
+    <h2>Entrar</h2>
+    <label>E-mail</label>
+    <input data-testid="email" id="email" value="cuidador@dev.local" />
+    <label>Senha</label>
+    <input data-testid="password" id="password" type="password" value="neurosint-dev" />
+    <button data-testid="login-btn" id="loginBtn">Entrar</button>
+    <div class="muted" id="loginMsg" style="margin-top:8px;"></div>
+  </section>
+
+  <!-- APP -->
+  <section class="card hidden" id="appCard">
+    <div class="row">
+      <strong data-testid="patient-name" id="patientName">—</strong>
+      <span class="pill" id="patientDiag"></span>
+      <button class="secondary" id="logoutBtn" style="margin-left:auto;">Sair</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTAR -->
+  <section class="card hidden" id="askCard">
+    <h2>Perguntar ao Neurosint</h2>
+    <textarea data-testid="ask-input" id="askInput" placeholder="Ex.: ele acordou tremendo hoje, é normal?"></textarea>
+    <button data-testid="ask-btn" id="askBtn">Perguntar</button>
+    <div id="askMsg" class="muted" style="margin-top:8px;"></div>
+    <div class="answer hidden" data-testid="answer" id="answer"></div>
+    <div class="alert hidden" data-testid="alert" id="alert"></div>
+  </section>
+
+  <!-- ENVIAR EXAME -->
+  <section class="card hidden" id="uploadCard">
+    <h2>Enviar exame</h2>
+    <input data-testid="upload-file" id="uploadFile" type="file" />
+    <button data-testid="upload-btn" id="uploadBtn">Enviar e processar</button>
+    <div id="uploadMsg" class="muted" style="margin-top:8px;"></div>
+  </section>
+
+  <!-- LINHA DO TEMPO -->
+  <section class="card hidden" id="timelineCard">
+    <h2>Linha do tempo (exames e registros)</h2>
+    <button class="secondary" id="refreshBtn">Atualizar</button>
+    <div data-testid="timeline" id="timeline"></div>
+  </section>
+</main>
+
+<script>
+const ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
+let TOKEN = null, PATIENT = null;
+const $ = (id) => document.getElementById(id);
+const show = (el) => el.classList.remove("hidden");
+const hide = (el) => el.classList.add("hidden");
+
+function headers(extra = {}) {
+  const h = { apikey: ANON, "Content-Type": "application/json", ...extra };
+  if (TOKEN) h.Authorization = "Bearer " + TOKEN;
+  return h;
+}
+
+async function health() {
+  try {
+    const r = await fetch("/functions/v1/health");
+    const j = await r.json();
+    $("health").textContent = `${j.target} · LLM=${j.providers.llm} · egress_ok=${j.egress_ok}`;
+  } catch { $("health").textContent = "indisponível"; }
+}
+
+async function login() {
+  $("loginMsg").textContent = "entrando…";
+  try {
+    const r = await fetch("/auth/v1/token?grant_type=password", {
+      method: "POST", headers: { apikey: ANON, "Content-Type": "application/json" },
+      body: JSON.stringify({ email: $("email").value, password: $("password").value }),
+    });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error_description || j.msg || "falha no login");
+    TOKEN = j.access_token;
+    $("loginMsg").textContent = "";
+    await loadPatient();
+    hide($("loginCard")); show($("appCard")); show($("askCard")); show($("uploadCard")); show($("timelineCard"));
+    await loadTimeline();
+  } catch (e) { $("loginMsg").textContent = "Erro: " + e.message; }
+}
+
+async function loadPatient() {
+  const r = await fetch("/rest/v1/patients?select=id,name,diagnosis&limit=1", { headers: headers() });
+  const rows = await r.json();
+  PATIENT = rows[0];
+  $("patientName").textContent = PATIENT ? PATIENT.name : "(sem caso)";
+  $("patientDiag").textContent = PATIENT ? (PATIENT.diagnosis || "") : "";
+}
+
+async function ask() {
+  const text = $("askInput").value.trim();
+  if (!text || !PATIENT) return;
+  $("askMsg").textContent = "pensando…"; hide($("answer")); hide($("alert"));
+  try {
+    const r = await fetch("/functions/v1/ask", {
+      method: "POST", headers: headers(),
+      body: JSON.stringify({ patient_id: PATIENT.id, text, client_msg_id: "web-" + Date.now() }),
+    });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || "falha");
+    $("askMsg").textContent = j.meta && j.meta.degraded ? "(IA indisponível — resposta de espera)" : "";
+    $("answer").textContent = j.answer; show($("answer"));
+    if (j.alert) { $("alert").textContent = "⚠ " + j.alert.severity.toUpperCase() + ": " + j.alert.reason; show($("alert")); }
+  } catch (e) { $("askMsg").textContent = "Erro: " + e.message; }
+}
+
+async function upload() {
+  const f = $("uploadFile").files[0];
+  if (!f || !PATIENT) { $("uploadMsg").textContent = "escolha um arquivo"; return; }
+  $("uploadMsg").textContent = "enviando…";
+  try {
+    const path = PATIENT.id + "/" + Date.now() + "_" + f.name.replace(/[^\w.\-]/g, "_");
+    const up = await fetch("/storage/v1/object/exams/" + path, {
+      method: "POST", headers: { apikey: ANON, Authorization: "Bearer " + TOKEN, "Content-Type": f.type || "application/octet-stream", "x-upsert": "true" },
+      body: f,
+    });
+    if (!up.ok) throw new Error("upload falhou (" + up.status + ")");
+    const ef = await fetch("/rest/v1/exam_files", {
+      method: "POST", headers: headers({ Prefer: "return=representation" }),
+      body: JSON.stringify({ patient_id: PATIENT.id, storage_path: path, mime: f.type || null, status: "uploaded" }),
+    });
+    const efRows = await ef.json();
+    if (!ef.ok) throw new Error((efRows.message || "registro falhou"));
+    const ing = await fetch("/functions/v1/ingest", {
+      method: "POST", headers: headers(), body: JSON.stringify({ exam_file_id: efRows[0].id }),
+    });
+    const j = await ing.json();
+    if (!ing.ok) throw new Error(j.error || "ingest falhou");
+    $("uploadMsg").textContent = "processado: tipo=" + (j.kind || "?") + ", " + (j.chars || 0) + " caracteres extraídos.";
+    await loadTimeline();
+  } catch (e) { $("uploadMsg").textContent = "Erro: " + e.message; }
+}
+
+async function loadTimeline() {
+  const r = await fetch("/rest/v1/medical_records?select=record_date,record_type,title,summary&patient_id=eq." + PATIENT.id + "&order=record_date.desc&limit=20", { headers: headers() });
+  const rows = await r.json();
+  $("timeline").innerHTML = (Array.isArray(rows) && rows.length)
+    ? rows.map((x) => `<div class="item"><strong>${x.record_type || ""}</strong> <span class="muted">${x.record_date || ""}</span><br>${x.title || ""}<br><span class="muted">${x.summary || ""}</span></div>`).join("")
+    : '<div class="muted">Nenhum registro ainda.</div>';
+}
+
+$("loginBtn").onclick = login;
+$("askBtn").onclick = ask;
+$("uploadBtn").onclick = upload;
+$("refreshBtn").onclick = loadTimeline;
+$("logoutBtn").onclick = () => location.reload();
+health();
+</script>
+</body>
+</html>

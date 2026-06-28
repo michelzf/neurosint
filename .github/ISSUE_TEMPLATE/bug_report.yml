@@ -1,0 +1,60 @@
+name: 🐛 Relatar um bug
+description: Algo não funciona como esperado.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ NUNCA inclua dados reais de paciente
+        Este projeto lida com dados de saúde. **Jamais** cole nesta issue nomes reais, CPF, datas
+        de nascimento, telefones, JIDs de WhatsApp, laudos, exames, imagens ou qualquer informação
+        que identifique uma pessoa — nem chaves/segredos. Use **dados fictícios ou redigidos**.
+        (Ver [SECURITY.md](../../SECURITY.md).)
+  - type: checkboxes
+    id: no-pii
+    attributes:
+      label: Confirmação de privacidade
+      options:
+        - label: Confirmo que este relatório NÃO contém dados reais de paciente, PII nem segredos.
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: O que aconteceu?
+      description: Descreva o bug e o que você esperava que acontecesse.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Passos para reproduzir
+      description: Passos mínimos (sem dados reais) para reproduzir o problema.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afetada
+      options:
+        - Camada 0 — agentes (.claude)
+        - Camada 1 — organização de exames
+        - Camada 2 — fusão DBS (tools/dbs_fusion)
+        - Camada 3 — MCPs de evidência
+        - Camada 4 — assistente WhatsApp (assistant/)
+        - Produto — backend Supabase (supabase/)
+        - Produto — app (apps/mobile/)
+        - Documentação
+        - Outro / não sei
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Ambiente
+      description: SO, versões relevantes (Node/Deno/Python/Supabase CLI), etc.
+    validations:
+      required: false

@@ -1,0 +1,13 @@
+# Upload context para `gcloud run deploy --source` (Cloud Build).
+# A imagem precisa de package*.json, src/, prompts/ (inclui o seu system-prompt.md!) e o Dockerfile.
+# NÃO usar `*.md` global — isso excluiria prompts/system-prompt.md e quebraria o boot.
+.git
+.gitignore
+.gcloudignore
+node_modules
+.env
+.env.*
+*.log
+test
+sql
+/README.md

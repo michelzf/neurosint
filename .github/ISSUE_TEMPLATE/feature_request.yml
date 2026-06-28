@@ -1,0 +1,40 @@
+name: 💡 Sugerir uma melhoria
+description: Uma ideia ou novo recurso.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ NUNCA inclua dados reais de paciente
+        Não cole nomes reais, CPF, exames, imagens, telefones nem segredos. Use exemplos fictícios.
+        (Ver [SECURITY.md](../../SECURITY.md) e [CONTRIBUTING.md](../../CONTRIBUTING.md).)
+  - type: checkboxes
+    id: no-pii
+    attributes:
+      label: Confirmação de privacidade
+      options:
+        - label: Confirmo que esta sugestão NÃO contém dados reais de paciente, PII nem segredos.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qual problema isso resolve?
+      description: Descreva a necessidade ou a dor por trás da ideia.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta
+      description: Como você imagina a solução? Alternativas consideradas?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Encaixe no escopo
+      description: |
+        Lembre que o Neurosint é um **copiloto de apoio à decisão** — não diagnostica nem prescreve
+        (ver DISCLAIMER.md). Como a ideia respeita esse limite?
+    validations:
+      required: false

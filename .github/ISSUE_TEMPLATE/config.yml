@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 Vulnerabilidade de segurança (NÃO abra issue pública)
+    url: https://github.com/michelzf/neurosint/security/advisories/new
+    about: Relate em privado por Security Advisories. Nunca inclua dados reais nem segredos.
+  - name: 💬 Dúvida ou ideia geral
+    url: https://github.com/michelzf/neurosint/discussions
+    about: Para perguntas e conversas abertas, use as Discussions.

@@ -1,0 +1,15 @@
+# Normaliza fim de linha (o repo é multiplataforma)
+* text=auto eol=lf
+
+# Scripts shell sempre LF
+*.sh text eol=lf
+
+# Binários / imagens médicas via Git LFS (caso algum dia se versione exemplo público)
+*.nii.gz filter=lfs diff=lfs merge=lfs -text
+*.png    -text
+*.jpg    -text
+*.pdf    -text
+
+# Não conte arquivos de vendor/gerados nas estatísticas de linguagem do GitHub
+assistant/package-lock.json linguist-generated=true
+LICENSE                   linguist-generated=true

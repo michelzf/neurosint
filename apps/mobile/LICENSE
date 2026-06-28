@@ -1,0 +1,15 @@
+Neurosint — app mobile
+
+Licenciado sob AGPL-3.0-or-later, como todo o monorepo Neurosint.
+A licença completa está na raiz do repositório: ../../LICENSE
+(GNU Affero General Public License, versão 3).
+
+Copyright (C) 2026 Michel Zarzour Filho.
+
+---------------------------------------------------------------------------
+Aviso de terceiros / Third-party notice
+
+Este app foi inicializado a partir do template de projeto do Expo. Partes
+desse scaffolding upstream são MIT, Copyright (c) 2015-present 650 Industries,
+Inc. (aka Expo). Os termos MIT aplicam-se apenas ao código upstream do template;
+o código do Neurosint é AGPL-3.0-or-later.
