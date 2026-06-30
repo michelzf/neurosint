@@ -21,6 +21,14 @@ url: "https://github.com/michelzf/neurosint"
 license: AGPL-3.0-or-later
 version: "1.0.0"
 date-released: "2026-06-30"
+doi: "10.5281/zenodo.21080152"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21080152"
+    description: "DOI conceitual (todas as versões) do software — Zenodo"
+  - type: doi
+    value: "10.5281/zenodo.21080153"
+    description: "DOI da versão 1.0.0 do software — Zenodo"
 keywords:
   - inteligência artificial
   - large language models

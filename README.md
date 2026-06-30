@@ -3,6 +3,7 @@
 **Um copiloto de IA para a família e o médico cuidarem melhor de quem você ama.**
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21080152.svg)](https://doi.org/10.5281/zenodo.21080152)
 [![Status](https://img.shields.io/badge/status-template%20v1.0%20%2B%20produto%20preview-brightgreen.svg)](CHANGELOG.md)
 [![copiloto família + médico](https://img.shields.io/badge/copiloto-fam%C3%ADlia%20%2B%20m%C3%A9dico-009c3b.svg)](DISCLAIMER.md)
 [![PT-BR](https://img.shields.io/badge/lang-PT--BR-009c3b.svg)](README.md) [![EN](https://img.shields.io/badge/lang-English-555.svg)](README.en.md)
@@ -116,6 +117,14 @@ neurosint/
 ├── tools/devkit/            # Harness de dev/teste local do produto (Deno + Playwright)
 └── docs/                    # jornada, arquitetura, privacidade, instalação, execução, plano
 ```
+
+## Como citar
+
+Se o Neurosint for útil no seu trabalho, cite:
+
+- **Software:** Zarzour Filho, M. (2026). *Neurosint* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.21080152
+- **Artigo (preprint):** Zarzour Filho, M. (2026). *Neurosint: um "conselho" de IA multiagente, de código aberto e construído por um familiar, para a síntese longitudinal de dados na Doença de Parkinson e na estimulação cerebral profunda — descrição do sistema e um caso ilustrativo*. Zenodo. https://doi.org/10.5281/zenodo.21078574
+
 
 ## Contribuir · Segurança · Licença
 

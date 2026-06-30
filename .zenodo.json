@@ -22,5 +22,13 @@
     "estimulação cerebral profunda",
     "deep brain stimulation",
     "pesquisa conduzida por pacientes"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isDocumentedBy",
+      "identifier": "10.5281/zenodo.21078574",
+      "resource_type": "publication-preprint",
+      "scheme": "doi"
+    }
   ]
 }
