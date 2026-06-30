@@ -4,7 +4,8 @@
 // (ou, com tudo de uma vez: pwsh tools/test-local.ps1)
 
 const BASE = Deno.env.get("DEV_BASE") || "http://127.0.0.1:8000";
-const ANON =
+// Anon key do demo LOCAL do Supabase (issuer "supabase-demo"): pública por design, NÃO é segredo.
+const ANON = Deno.env.get("DEV_ANON") ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
 const PATIENT = "00000000-0000-0000-0000-0000000000b1";
 const OTHER = "00000000-0000-0000-0000-0000000000ff";

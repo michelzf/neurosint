@@ -9,6 +9,8 @@
 // vem com todo `supabase start` e NÃO é um segredo. Em produção, troque pela anon key
 // do seu projeto Supabase (a anon key é pública; o service_role NUNCA vai para o cliente).
 const ANON =
+  // deno-lint-ignore no-explicit-any
+  (globalThis as any).NEUROSINT_ANON ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
 
 // deno-lint-ignore no-explicit-any
