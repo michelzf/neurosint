@@ -16,7 +16,7 @@
     "test": "node --test test/smoke.test.js"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "dotenv": "^18.0.3",
     "express": "^4.21.2",
     "node-cron": "^3.0.3",
     "pdfkit": "^0.15.1"
